@@ -1,0 +1,79 @@
+<html>
+<head>
+    <style>
+        .container { position: relative; }
+        .stack {
+            width: 400px;
+            height: 500px;
+            background: #000;
+            border: 1px solid grey;
+            position: absolute;
+        }
+        #attackerUnits { left:0; top: 200px; }
+        #defenderUnits { right:0; top: 200px; }
+        .unit {
+            width: 98px;
+            height: 98px;
+            border: 1px solid grey;
+            color: grey;
+            font-family: Sans-serif;
+            font-size: 10px;
+            float: left;
+            position: relative;
+            -moz-transition: opacity 0.4s, background-color 1s;
+        }
+        .unit .bar {
+            height: 5px;
+            width: 100%;
+            border: 1px solid grey;
+            position: absolute;
+            bottom: -1px;
+            left: -1px;
+        }
+        .unit.ambush {
+            opacity: 0;
+        }
+        .unit.shooting {
+            background-color: #fff;
+            -moz-transition: background-color 0.1s;
+        }
+        .unit.damaged {
+            background-color: #f44;
+            -moz-transition: background-color 0.2s;
+        }
+        .unit.routed {
+            border: 1px solid yellow;
+        }
+        .unit.dead {
+            border: 1px solid red;
+        }
+        .bar .health {
+            background-color: green;
+            height: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            -moz-transition: width 0.8s;
+        }
+        .bar .curr-health {
+            height: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            -moz-transition: width 0.4s;
+            border-right: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="attackerUnits" class="stack"></div>
+        <div id="defenderUnits" class="stack"></div>
+    </div>
+    <script src="lib/jquery-1_11_1.js"></script>
+    <script src="config.js"></script>
+    <script src="Units.js"></script>
+    <script src="Stack.js"></script>
+    <script src="efs.js"></script>
+</body>
+</html>
