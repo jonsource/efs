@@ -1,0 +1,71 @@
+<html>
+<head>
+    <style>
+        .container { width:75%; position: relative; }
+        .map { position:relative; overflow: hidden; border: 1px solid black; background: #000;}
+        .map .canvas {translate3d(0,0,0); position: absolute; -moz-transition: top 0.5s, left 0.5s; -webkit-transition: top 0.5s, left 0.5s;}
+        .hex {  background: url(img/hex.png); 
+                width: 44px; height: 50px; 
+                position: absolute;
+                opacity: 1;
+                font-size: 10px;    
+            }
+        .hex .feature { z-index: 1; }
+        .hex span { position: relative; z-index: 2; }
+        .flat .hex, .flat .feature {
+            background: url(img/hex-fl.png); 
+            width: 50px; height: 44px; 
+            position: absolute;
+            opacity: 1;
+        }
+        .dark .hex { opacity: 0.5}
+        .hex.type-grassland { background: url(img/hex-fl-grassland.png); }
+        .hex.type-hills { background: url(img/hex-fl-hills.png); }
+        .hex.type-desert { background: url(img/hex-fl-desert.png); }
+        .hex.type-mountains { background: url(img/hex-fl-mountains.png); }
+        .hex.type-water { background: url(img/hex-fl-water.png); }
+        .feature.feature-forrest { background: url(img/feature-fl-forrest.png); }
+        .feature.feature-river { background: url(img/feature-fl-river.png); }
+        .hex:hover:before{
+                background: url(img/hex-fl.png); 
+                width: 50px; height: 44px; 
+                position: absolute;
+                opacity: 0.4;
+                font-size: 10px;
+                z-index: 10;
+                display: block;
+                content: '';
+        }
+        .hex.lit {
+            opacity: 1;
+        }
+        .tsb .hex.active:before, .hex.path:before{
+                background: url(img/hex-fl.png); 
+                width: 50px; height: 44px; 
+                position: absolute;
+                opacity: 0.4;
+                font-size: 10px;
+                z-index: 10;
+                display: block;
+                content: 'p';
+        }
+        .hex.lit:hover:before{
+            opacity: 0.6;
+        }
+        .movement { font-size: 12px; color: red; position: absolute; top: 10px; left: 10px; display: block; width: 10px; z-index: 100}
+        .tsb { width: 20%; height: 200px; position: absolute; right:10px; top: 10px; background: #000; }
+        .tsb .hex { position: relative; float: left; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="map"></div>
+    </div>
+    <script src="lib/jquery-1_11_1.js"></script>
+    <script src="lib/Queue.js"></script>
+    <script src="config.js"></script>
+    <script src="hex-map.js"></script>
+    
+    
+</body>
+</html>
