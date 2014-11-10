@@ -3,7 +3,7 @@
     <style>
         .container { width:75%; position: relative; }
         .map { position:relative; overflow: hidden; border: 1px solid black; background: #000;}
-        .map .canvas {translate3d(0,0,0); position: absolute; -moz-transition: top 0.5s, left 0.5s; -webkit-transition: top 0.5s, left 0.5s;}
+        .map .hex-map-canvas {translate3d(0,0,0); position: absolute; -moz-transition: top 0.5s, left 0.5s; -webkit-transition: top 0.5s, left 0.5s;}
         .hex {  background: url(img/hex.png); 
                 width: 44px; height: 50px; 
                 position: absolute;
@@ -24,7 +24,7 @@
         .hex.type-desert { background: url(img/hex-fl-desert.png); }
         .hex.type-mountains { background: url(img/hex-fl-mountains.png); }
         .hex.type-water { background: url(img/hex-fl-water.png); }
-        .feature.feature-forrest { background: url(img/feature-fl-forrest.png); }
+        .feature.feature-forest { background: url(img/feature-fl-forest.png); }
         .feature.feature-river { background: url(img/feature-fl-river.png); }
         .hex:hover:before{
                 background: url(img/hex-fl.png); 
@@ -65,6 +65,7 @@
     <script src="lib/Queue.js"></script>
     <script src="config.js"></script>
     <script src="hex-map.js"></script>
+    <script src="map-example.js"></script>
     
     
 </body>
