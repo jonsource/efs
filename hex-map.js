@@ -245,6 +245,24 @@ Map.prototype.getNeighbors = function(hex,visited)
         
     }
 }
+
+Map.prototype.getPathNeighbors = function(hex)
+{   var ret=[];
+    for(var n=0; n<this.neighborMatrix.length; n++)
+    {   var nq = hex.q+this.neighborMatrix[n][0];
+        var nr = hex.r+this.neighborMatrix[n][1];
+		if(this.terrain[nq] && this.terrain[nq][nr] && (!this.terrain[nq][nr].closed))
+        {   ret.push({q:nq,r:nr});
+        }
+    }
+    return ret;
+}
+
+Map.prototype.getTerrain = function(hex)
+{
+	return this.terrain[hex.q][hex.r];
+}
+
 Map.prototype.getDistance = function(hex1,hex2)
 {   return (Math.abs(hex1.q - hex2.q) + Math.abs(hex1.r - hex2.r)
           + Math.abs(hex1.q + hex1.r - hex2.q - hex2.r)) / 2

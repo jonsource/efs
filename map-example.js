@@ -23,6 +23,26 @@ function movement($hex)
         visited = false;
         return false;
 }
+
+path_start = null;
+path_end = null;
+
+function path($hex)
+{
+	if(!path_start)
+	{	$hex.addClass('lit');
+		path_start = {q:$hex.data('q'),r:$hex.data('r')};
+		return;
+	}
+	path_end = {q:$hex.data('q'),r:$hex.data('r')};
+	var options = {heuristic:map.getDistance};
+	var path = astar.search(map, path_start, path_end, options);
+	console.log(path);
+	astar.init(map);
+	
+	path_start = null;
+	path_end = null;
+}
         
 function createTerrainSelectBox() 
 {   var $tsb = $('<div class="tsb flat"></div>');
@@ -95,27 +115,12 @@ $(function() {
         }
     });
     
-    current_click_function = movement;
+    //current_click_function = movement;
+	current_click_function = path;
     
     $('.map .hex').on('click',function() { current_click_function($(this)); } );
     
     $('.tsb .hex').on('click', function() { select_terrain($(this)); } );
-    
-    glob_queue = true;
-    $button = $('<div class="button">Queue</div>');
-    $button.on('click',function() 
-    {   console.log('trigger');
-        if(glob_queue)
-        {   glob_queue = false;
-            $this.html('Stack');
-        }
-        else
-        {   glob_queue = true;
-            $this.html('Queue');
-            
-        }
-    });
-    $('.map').after($button);
     
     $button = $('<div class="button">Dump Terrain</div>');
     $button.on('click',function() 
