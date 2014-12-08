@@ -68,3 +68,6 @@ Stack.prototype.getSpotting = function() {
     }
     return ret;
 }
+Stack.prototype.getImageClass = function() {
+	return "artillery";
+}

@@ -59,8 +59,16 @@ Map.prototype.render = function(center)
             this.$canv.append($hex);
         }
     }
-    this.$cont.append(this.$canv);
+	this.renderStacks();
+	this.$cont.append(this.$canv);
     this.moveCenter(center);
+}
+Map.prototype.renderStacks = function()
+{   for(var q=0; q<this.stacks.length; q++)
+    {   var $stack = this.prepareStack(this.stacks[q]);
+        this.$canv.append($stack);
+	}
+	//this.moveCenter(center);
 }
 Map.prototype.prepareHexClass = function(pos)
 {   var q = pos.q;
@@ -82,15 +90,30 @@ Map.prototype.prepareHex = function(pos)
     if(this.terrain[q][r])
     {   var type=this.terrain[q][r].type;
         var feature=this.prepareFeatureClass(pos);
-        var $hex = $('<div data-q="'+q+'" data-r="'+r+'" class="'+this.prepareHexClass(pos)+'"></div>');
+		var $hex = $('<div data-q="'+q+'" data-r="'+r+'" class="'+this.prepareHexClass(pos)+'"></div>');
         if(feature)
         {   $hex.append($('<div class="'+feature+'"></div>'));
         }
-        var $span = $('<span>'+q+','+r+'</span>');
+		var $span = $('<span>'+q+','+r+'</span>');
         $hex.append($span);
         var sq = this.hexToSquare({q:q,r:r});
         $hex.css({left:sq.x,top:sq.y});
         return $hex;
+    }
+}
+Map.prototype.prepareStackClass = function(stack)
+{	return "unit "+stack.getImageClass();
+}
+Map.prototype.prepareStack = function(stack)
+{   var q = stack.q;
+    var r = stack.r;
+    if(this.terrain[q][r])
+    {   var $stack = $('<div data-q="'+q+'" data-r="'+r+'" class="'+this.prepareStackClass(stack)+'"></div>');
+        var sq = this.hexToSquare({q:q,r:r});
+        $stack.css({left:sq.x,top:sq.y});
+		$stack[0].efs_stack = stack;
+		console.log($stack);
+        return $stack;
     }
 }
 Map.prototype.selectHex = function(pos)
@@ -213,7 +236,7 @@ Map.prototype.generate = function(w,h)
     }
     
 }
-Map.prototype.getMovementCost = function(hex)
+Map.prototype.getMovementCost = function(hex,stack)
 {   
     if(!this.terrain[hex.q] || !this.terrain[hex.q][hex.r]) return 100;
     var ret = 1
@@ -276,6 +299,7 @@ Map.prototype.getRange=function(q,r,moves)
     var search = new Queue();
     search.enqueue({q:q,r:r,moves:moves});
     
+	//TODO:check moves of moving stack
     if(moves>0)
     {   this.terrain[q][r].visited=moves;
         visited.push({q:q,r:r});
@@ -286,7 +310,8 @@ Map.prototype.getRange=function(q,r,moves)
     while(hex)
     {   var nb = this.getNeighbors(hex,hex.moves);
         for(var i=0; i<nb.length; i++)
-        {   var m = hex.moves-this.getMovementCost(nb[i]);
+        {   //TODO:subtract moves from moving stack
+			var m = hex.moves-this.getMovementCost(nb[i]);
             if(m>=0)
             {   var nq = nb[i].q;
                 var nr = nb[i].r;

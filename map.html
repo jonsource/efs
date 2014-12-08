@@ -55,6 +55,31 @@
         .movement { font-size: 12px; color: red; position: absolute; top: 10px; left: 10px; display: block; width: 10px; z-index: 100}
         .tsb { width: 20%; height: 200px; position: absolute; right:10px; top: 10px; background: #000; }
         .tsb .hex { position: relative; float: left; }
+		
+		.unit {  background-color: #ff0000; 
+                width: 30px; height: 30px; 
+                position: absolute;
+                opacity: 1;
+                font-size: 10px;
+				z-index: 10;
+				margin-left: 10px;
+				margin-top: 7px;
+            }
+		.unit.artillery:before {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			content: 'A';
+			display: block;
+		}
+		.unit.tank:before {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			content: 'T';
+			display: block;
+		}
+		.unit:hover {  background-color: #ff5555; 
     </style>
 </head>
 <body>
@@ -68,6 +93,8 @@
     <script src="config.js"></script>
     <script src="hex-map.js"></script>
     <script src="map-example.js"></script>
+	<script src="Units.js"></script>
+	<script src="Stack.js"></script>
     
     
 </body>
